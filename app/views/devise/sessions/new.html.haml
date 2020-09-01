@@ -1,0 +1,29 @@
+#home-section.intro-section
+  .slide-1{"data-stellar-background-ratio" => "0.5", :style => "background-image: url(#{image_path("hero_1.jpg")});"}
+    .container
+      .row.align-items-center
+        .col-12
+          .row.align-items-center
+            .col-lg-6.mb-4
+              %h1 Save your favourite videos
+              %p.mb-4 Manage your favourite videos from YouTube by yourself.
+            .col-lg-5.ml-auto
+              = form_for(resource, as: resource_name, url: session_path(resource_name), html: {class: "form-box"} ) do |f|
+                %h3.h4.text-black.mb-4 Sign Up
+                .field
+                  = f.label :email
+                  %br/
+                  = f.email_field :email, autofocus: true, autocomplete: "email"
+                .field
+                  = f.label :password
+                  %br/
+                  = f.password_field :password, autocomplete: "current-password"
+                - if devise_mapping.rememberable?
+                  .field
+                    = f.check_box :remember_me
+                    = f.label :remember_me
+                .actions
+                  = f.submit "Log in"
+              = render "devise/shared/links"
+
+

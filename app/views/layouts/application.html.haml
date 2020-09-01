@@ -7,4 +7,42 @@
     = stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload'
     = javascript_include_tag 'application', 'data-turbolinks-track': 'reload'
   %body
-    = yield
+    .site-wrap
+      .site-mobile-menu.site-navbar-target
+        .site-mobile-menu-header
+          .site-mobile-menu-close.mt-3
+            %span.icon-close2.js-menu-toggle
+        .site-mobile-menu-body
+      %header.site-navbar.py-4.js-sticky-header.site-navbar-target{:role => "banner"}
+        .container-fluid
+          .d-flex.align-items-center
+            .site-logo.mr-auto.w-25
+              %a{:href => "/"} Funny Videos
+      #home-section.intro-section
+        .slide-1{"data-stellar-background-ratio" => "0.5", :style => "background-image: url(#{image_path("images/hero_1.jpg")});"}
+          .container
+            %p.notice-1= notice
+            %p.alert-1= alert
+            - if user_signed_in?
+              = link_to('Logout', destroy_user_session_path, method: :delete)
+            = yield
+      %footer.footer-section.bg-white{style: "padding: 0"}
+        .container
+          .row.mt-2.text-center
+            .col-md-12
+              %div
+                %p
+                  / Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0.
+                  Copyright ©
+                  :javascript
+                    document.write(new Date().getFullYear());
+                  All rights reserved | This template is made with
+                  %i.icon-heart{"aria-hidden" => "true"}
+                  by
+                  %a{:href => "https://colorlib.com", :target => "_blank"} Colorlib
+                  - if user_signed_in?
+                    = link_to('Logout', destroy_user_session_path, method: :delete)
+                  / Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0.
+      }
+
+
