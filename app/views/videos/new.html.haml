@@ -1,0 +1,13 @@
+.col-12
+  .row.justify-content-center.align-items-center
+    .col.col-8.mt-5
+      = form_for(@video, html: {class: "rounded border dark-border px-3 pt-4"}) do |f|
+        %label.form-label Share a YouTube movie
+        .form-group.row
+          %label.col-sm-3.col-form-label{:for => "youtubeUrl"} YouTube URL:
+          .col-sm-9
+            %input#youtubeUrl.form-control{"aria-describedby" => "youtubeUrl", :placeholder => "YouTube URL", :type => "url"}/
+            .action-btn.row.mt-3
+              .col-md-12.text-center
+                %button.btn.btn-primary{:type => "submit"} Share
+
