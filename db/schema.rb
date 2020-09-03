@@ -25,8 +25,16 @@ ActiveRecord::Schema.define(version: 20200901064249) do
   end
 
   create_table "videos", force: :cascade do |t|
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.string   "video_id"
+    t.string   "title"
+    t.text     "description"
+    t.string   "publisher"
+    t.integer  "votes_up"
+    t.integer  "votes_down"
+    t.integer  "user_id"
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+    t.index ["video_id"], name: "index_videos_on_video_id", unique: true
   end
 
 end
