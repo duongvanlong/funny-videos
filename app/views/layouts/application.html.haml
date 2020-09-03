@@ -14,11 +14,13 @@
         %p.alert-1= alert
       .row
         .col-4
-          %h1 Funny Movies
+          %h1
+            = image_tag("home.png", size: 50, style: "top: -6px; position: absolute;")
+            .app-name{style: "margin-left: 50px;"} Funny Movies
         .col-8
           - if user_signed_in?
             Welcome #{current_user.email}
-            .btn= link_to "Share a movie", new_videos_path
-            .btn= link_to('Logout', destroy_user_session_path, method: :delete)
+            .btn.float-right= link_to('Logout', destroy_user_session_path, method: :delete)
+            .btn.float-right= link_to "Share a movie", new_videos_path
       .row
         = yield

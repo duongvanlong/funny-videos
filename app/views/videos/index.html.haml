@@ -1,2 +1,8 @@
 .col-12
-  Nothing here man
+  - @videos.each do |video|
+    .row.mt-5
+      .col-4
+        %iframe{src: "https://www.youtube.com/embed/#{video.video_id}", width: "360", height: "202", frameborder: "0"}
+      .col-8
+        .video-title.h5= video.title
+        .video-description= video.description

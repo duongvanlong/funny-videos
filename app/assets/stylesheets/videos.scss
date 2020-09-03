@@ -8,3 +8,8 @@ form label.form-label {
   background-color: white;
   padding: 0 5px;
 }
+.video-description {
+  white-space: pre-line;
+  max-height: 170px;
+  overflow: scroll;
+}
