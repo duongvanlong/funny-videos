@@ -7,6 +7,7 @@ class CreateVideos < ActiveRecord::Migration[5.0]
       t.string :publisher
       t.integer :votes_up
       t.integer :votes_down
+      t.integer :views_count
       t.integer :user_id
       t.timestamps
     end

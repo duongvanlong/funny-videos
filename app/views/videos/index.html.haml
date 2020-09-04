@@ -1,8 +1,19 @@
 .col-12
-  - @videos.each do |video|
+  - if @videos.blank?
     .row.mt-5
-      .col-4
-        %iframe{src: "https://www.youtube.com/embed/#{video.video_id}", width: "360", height: "202", frameborder: "0"}
-      .col-8
-        .video-title.h5= video.title
-        .video-description= video.description
+      .col-12.text-center There are no videos now
+  - else
+    - @videos.each do |video|
+      .row.mt-5
+        .col-4
+          %iframe{src: "https://www.youtube.com/embed/#{video.video_id}", width: "360", height: "270", frameborder: "0"}
+        .col-8
+          .video-title.h5.text-danger.mb-0= video.title
+          .video-details
+            .row
+              .col-12= "Shared by: #{video.publisher}"
+            .row
+              %i.col-1.far.fa-thumbs-up= video.votes_up
+              %i.col-1.far.fa-thumbs-down= video.votes_down
+          Description:
+          .video-description= video.description

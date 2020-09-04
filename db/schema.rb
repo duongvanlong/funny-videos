@@ -31,6 +31,7 @@ ActiveRecord::Schema.define(version: 20200901064249) do
     t.string   "publisher"
     t.integer  "votes_up"
     t.integer  "votes_down"
+    t.integer  "views_count"
     t.integer  "user_id"
     t.datetime "created_at",  null: false
     t.datetime "updated_at",  null: false
