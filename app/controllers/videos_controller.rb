@@ -1,7 +1,8 @@
 class VideosController < ApplicationController
   require 'open-uri'
   def index
-    @videos = Video.where(user_id: current_user.id).order("created_at desc")
+    page = params[:page] || 1
+    @videos = Video.where(user_id: current_user.id).page(page).order("created_at desc")
   end
 
   def new

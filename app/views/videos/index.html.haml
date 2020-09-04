@@ -1,4 +1,5 @@
 .col-12
+  = page_entries_info @videos
   - if @videos.blank?
     .row.mt-5
       .col-12.text-center There are no videos now
@@ -17,3 +18,4 @@
               %i.col-2.far.fa-thumbs-down= video.votes_down
           Description:
           .video-description= video.description
+= paginate @videos
