@@ -1,4 +1,13 @@
 class YoutubeDetailsRetriver
+  require 'open-uri'
+  VIDEO_RETRIEVE_FIELDS= [
+    "items/snippet/title",
+    "items/snippet/description",
+    "items/snippet/channelTitle",
+    "items/statistics/viewCount",
+    "items/statistics/likeCount",
+    "items/statistics/dislikeCount"
+  ]
   def get_youtube_id(url)
     id = ''
     url = url.gsub(/(>|<)/i,'').split(/(vi\/|v=|\/v\/|youtu\.be\/|\/embed\/)/)
@@ -10,7 +19,7 @@ class YoutubeDetailsRetriver
   end
 
   def get_video_details(video_id)
-    url = "https://www.googleapis.com/youtube/v3/videos?part=snippet,contentDetails,statistics&id=#{video_id}&fields=items/snippet/title,items/snippet/description,items/snippet/channelTitle,items/statistics/viewCount,items/statistics/likeCount,items/statistics/dislikeCount&key=AIzaSyCsPFXcf-YxkgOCnKr7N227Q389kCBRS_I"
+    url = "https://www.googleapis.com/youtube/v3/videos?part=snippet,statistics&id=#{video_id}&fields=#{retrieve_fields}&key=#{GOOGLE_API_KEY}"
     video_data = JSON.load(open(url))
     raise StandardError.new("Youtube video not found!") if video_data["items"].blank?
     result = {}
@@ -22,5 +31,10 @@ class YoutubeDetailsRetriver
     result[:votes_up] = video_details["statistics"]["likeCount"]
     result[:votes_down] = video_details["statistics"]["dislikeCount"]
     result
+  end
+
+  private
+  def retrieve_fields
+    VIDEO_RETRIEVE_FIELDS.join(",")
   end
 end

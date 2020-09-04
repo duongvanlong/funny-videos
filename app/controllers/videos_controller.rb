@@ -1,8 +1,8 @@
 class VideosController < ApplicationController
-  require 'open-uri'
   def index
     page = params[:page] || 1
     @videos = Video.where(user_id: current_user.id).page(page).order("created_at desc")
+    update_video_details(@videos)
   end
 
   def new
@@ -13,7 +13,7 @@ class VideosController < ApplicationController
     video_id = youtube_service.get_youtube_id(params[:youtubeUrl])
     if video_id.blank?
       flash[:alert] = "Can't recognize youtube video"
-      new
+      redirect_to action: 'new', youtubeUrl: params[:youtubeUrl]
     else
       video = Video.where(video_id: video_id, user_id: current_user.id).first_or_initialize
       video_details = youtube_service.get_video_details(video_id)
@@ -28,11 +28,19 @@ class VideosController < ApplicationController
     end
   rescue => e
     flash[:alert] = e.message
-    new
+    redirect_to action: 'new', youtubeUrl: params[:youtubeUrl]
   end
 
   private
   def youtube_service
     @youtube_service ||= ::YoutubeDetailsRetriver.new
+  end
+
+  def update_video_details(videos)
+    videos.each do |video|
+      video_details = youtube_service.get_video_details(video.video_id)
+      video.assign_attributes video_details
+      video.save
+    end
   end
 end

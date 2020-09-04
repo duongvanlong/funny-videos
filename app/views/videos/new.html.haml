@@ -6,7 +6,7 @@
         .form-group.row
           %label.col-sm-3.col-form-label{:for => "youtubeUrl"} YouTube URL:
           .col-sm-9
-            %input#youtubeUrl.form-control{"aria-describedby" => "youtubeUrl", name: "youtubeUrl", :placeholder => "YouTube URL", :type => "url"}/
+            %input#youtubeUrl.form-control{"aria-describedby" => "youtubeUrl", name: "youtubeUrl", :placeholder => "YouTube URL", :type => "url", value: "#{params[:youtubeUrl]}"}/
             .action-btn.row.mt-3
               .col-md-12.text-center
                 %button.btn.btn-primary{:type => "submit"} Share
