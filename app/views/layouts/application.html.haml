@@ -7,17 +7,22 @@
     = stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload'
     = javascript_include_tag 'application', 'data-turbolinks-track': 'reload'
   %body
-    .container
+    .container.pt-5
       .row
-        .col-4
+        .col-lg-4.col-sm-6
           %a.h1{href: "/"}
             = image_tag("home.png", size: 50, style: "top: -6px; position: absolute;")
             .app-name{style: "margin-left: 50px;"} Funny Movies
-        .col-8
+        .col-lg-8.col-sm-6
           - if user_signed_in?
-            Welcome #{current_user.email}
-            .btn.float-right= link_to('Logout', destroy_user_session_path, method: :delete)
-            .btn.float-right= link_to "Share a movie", new_videos_path
+            .container
+              .row
+                .col-lg-8.col-sm-12
+                  Welcome #{current_user.email}
+                .col-lg-2.col-sm-12
+                  .btn.float-right.pr-0.pt-0= link_to('Logout', destroy_user_session_path, method: :delete)
+                .col-lg-2.col-sm-12
+                  .btn.float-right.pr-0.pt-0= link_to "Share a movie", new_videos_path
       .row
         .col-12
           %p.alert.text-danger= alert

@@ -6,16 +6,13 @@
   - else
     - @videos.each do |video|
       .row.mt-5
-        .col-4
+        .col-lg-4.col-sm-7
           %iframe{src: "https://www.youtube.com/embed/#{video.video_id}", width: "360", height: "270", frameborder: "0"}
-        .col-8
+        .col-lg-8.col-sm-5
           .video-title.h5.text-danger.mb-0= video.title
           .video-details
             .row
               .col-12= "Shared by: #{video.publisher}"
-            .row
-              %i.col-2.far.fa-thumbs-up= video.votes_up
-              %i.col-2.far.fa-thumbs-down= video.votes_down
           Description:
           .video-description= video.description
 .col-12.mt-2.d-flex.justify-content-center

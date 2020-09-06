@@ -2,7 +2,6 @@ class VideosController < ApplicationController
   def index
     page = params[:page] || 1
     @videos = Video.where(user_id: current_user.id).page(page).order("created_at desc")
-    update_video_details(@videos)
   end
 
   def new
@@ -34,13 +33,5 @@ class VideosController < ApplicationController
   private
   def youtube_service
     @youtube_service ||= ::YoutubeDetailsRetriver.new
-  end
-
-  def update_video_details(videos)
-    videos.each do |video|
-      video_details = youtube_service.get_video_details(video.video_id)
-      video.assign_attributes video_details
-      video.save
-    end
   end
 end
