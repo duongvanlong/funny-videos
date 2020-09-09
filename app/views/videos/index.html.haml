@@ -1,8 +1,8 @@
 .col-12
-  = page_entries_info @videos
+  .paging-info= page_entries_info @videos
   - if @videos.blank?
     .row.mt-5
-      .col-12.text-center There are no videos now
+      .col-12.text-center.no-video-message There are no videos now
   - else
     - @videos.each do |video|
       .row.mt-5
@@ -15,5 +15,5 @@
               .col-12= "Shared by: #{video.publisher}"
           Description:
           .video-description= video.description
-.col-12.mt-2.d-flex.justify-content-center
+.col-12.mt-2.d-flex.justify-content-center.page-navigation
   = paginate @videos

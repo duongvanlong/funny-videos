@@ -1,4 +1,4 @@
-class YoutubeDetailsRetriver
+class YoutubeDetailsRetriever
   require 'open-uri'
   VIDEO_RETRIEVE_FIELDS= [
     "items/snippet/title",
@@ -7,7 +7,16 @@ class YoutubeDetailsRetriver
     "items/statistics/viewCount",
     "items/statistics/likeCount",
     "items/statistics/dislikeCount"
-  ]
+  ].freeze
+
+  class VideoNotFound < StandardError
+    def message
+      "Youtube video not found!"
+    end
+  end
+
+  class InvalidRespond < StandardError; end
+
   def get_youtube_id(url)
     id = ''
     url = url.gsub(/(>|<)/i,'').split(/(vi\/|v=|\/v\/|youtu\.be\/|\/embed\/)/)
@@ -19,9 +28,10 @@ class YoutubeDetailsRetriver
   end
 
   def get_video_details(video_id)
-    url = "https://www.googleapis.com/youtube/v3/videos?part=snippet,statistics&id=#{video_id}&fields=#{retrieve_fields}&key=#{GOOGLE_API_KEY}"
+    url = "https://www.googleapis.com/youtube/v3/videos?part=snippet,statistics&id=#{video_id}&fields=#{retrieve_fields}&key=#{ENV["GOOGLE_API_KEY"]}"
     video_data = JSON.load(open(url))
-    raise StandardError.new("Youtube video not found!") if video_data["items"].blank?
+    raise VideoNotFound if video_data["items"].blank?
+    raise InvalidRespond unless video_data.keys.include? "items"
     result = {}
     video_details = video_data["items"].first
     result[:title] = video_details["snippet"]["title"]
@@ -37,4 +47,5 @@ class YoutubeDetailsRetriver
   def retrieve_fields
     VIDEO_RETRIEVE_FIELDS.join(",")
   end
+
 end

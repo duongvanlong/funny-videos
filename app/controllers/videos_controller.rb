@@ -16,6 +16,7 @@ class VideosController < ApplicationController
     else
       video = Video.where(video_id: video_id, user_id: current_user.id).first_or_initialize
       video_details = youtube_service.get_video_details(video_id)
+
       video.assign_attributes video_details
       if video.new_record?
         flash[:notice] = "Video successfully created"
@@ -32,6 +33,6 @@ class VideosController < ApplicationController
 
   private
   def youtube_service
-    @youtube_service ||= ::YoutubeDetailsRetriver.new
+    @youtube_service ||= ::YoutubeDetailsRetriever.new
   end
 end
